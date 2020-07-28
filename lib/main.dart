@@ -7,7 +7,7 @@ class Quizzler extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: Colors.grey[100],
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -41,7 +41,7 @@ class _QuizPageState extends State<QuizPage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
-                  color: Colors.white,
+                  color: Colors.grey[800],
                 ),
               ),
             ),
@@ -51,12 +51,17 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: FlatButton(
-              textColor: Colors.white,
-              color: Colors.green,
+              textColor: Colors.grey[800],
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: Colors.grey[800],
+                  width: 2.5,
+                )
+              ),
               child: Text(
                 'True',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.grey[800],
                   fontSize: 20.0,
                 ),
               ),
@@ -70,12 +75,18 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: FlatButton(
-              color: Colors.red,
+              color: Colors.grey[100],
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: Colors.grey[800],
+                  width: 2.5,
+                )
+              ),
               child: Text(
                 'False',
                 style: TextStyle(
                   fontSize: 20.0,
-                  color: Colors.white,
+                  color: Colors.grey[800],
                 ),
               ),
               onPressed: () {
