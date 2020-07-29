@@ -46,7 +46,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNum],
+                questions[questionNum % questions.length],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -77,10 +77,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //true was chosen
                 setState(() {
-                  if (questionNum == questions.length - 1)
-                    questionNum = 0;
-                  else
-                    questionNum++;
+                  questionNum++;
                 });
               },
             ),
@@ -107,10 +104,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //false was chosen
                 setState(() {
-                  if (questionNum == questions.length - 1)
-                  questionNum = 0;
-                  else
-                    questionNum++;
+                  questionNum++;
                 });
               },
             ),
