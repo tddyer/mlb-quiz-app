@@ -33,6 +33,13 @@ class _QuizPageState extends State<QuizPage> {
     'Approximately one quarter of human bones are in the feet.',
     'A slug\'s blood is green.',
   ];
+  List<bool> answers = [false, true, true];
+
+  bool checkAnswer(bool answer) {
+    if (answer == answers[questionNum % answers.length])
+      return true;
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +84,10 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //true was chosen
                 setState(() {
+                  if (checkAnswer(true))
+                    print('correct');
+                  else
+                    print('incorrect');
                   questionNum++;
                 });
               },
@@ -104,6 +115,10 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //false was chosen
                 setState(() {
+                  if (checkAnswer(false))
+                    print('correct');
+                  else
+                    print('incorrect');
                   questionNum++;
                 });
               },
