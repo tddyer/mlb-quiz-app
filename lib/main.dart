@@ -36,6 +36,24 @@ class _QuizPageState extends State<QuizPage> {
     Question(q: 'A slug\'s blood is green.', a: true),
   ];
 
+  int currIcon = 0;
+  List<Icon> icons = [
+    Icon(
+      Icons.check,
+      color: Colors.transparent,
+    ),
+    Icon(
+      Icons.check,
+      color: Colors.green,
+      size: 60,
+    ),
+    Icon(
+      Icons.close,
+      color: Colors.red,
+      size: 60,
+    ),
+  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +78,11 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
         Expanded(
+          child: Center(
+            child: icons[currIcon]
+          ),
+        ),
+        Expanded(
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: FlatButton(
@@ -81,9 +104,9 @@ class _QuizPageState extends State<QuizPage> {
                 //true was chosen
                 setState(() {
                   if (questionList[questionNum % questionList.length].checkAnswer(true))
-                    print('correct');
+                    currIcon = 1;
                   else
-                    print('incorrect');
+                    currIcon = 2;
                   questionNum++;
                 });
               },
@@ -112,9 +135,9 @@ class _QuizPageState extends State<QuizPage> {
                 //false was chosen
                 setState(() {
                   if (questionList[questionNum % questionList.length].checkAnswer(false))
-                    print('correct');
+                    currIcon = 1;
                   else
-                    print('incorrect');
+                    currIcon = 2;
                   questionNum++;
                 });
               },
