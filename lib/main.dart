@@ -28,7 +28,7 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
 
   int questionNum = 0;
-  List<Icon> scoreKeeper = [];
+  int currIcon = 0;
   bool _visibleCorrect = false;
   bool _visibleIncorrect = false;
 
@@ -37,28 +37,6 @@ class _QuizPageState extends State<QuizPage> {
     Question(q: 'Approximately one quarter of human bones are in the feet.', a: true),
     Question(q: 'A slug\'s blood is green.', a: true),
   ];
-
-  int currIcon = 0;
-  // List<AnimatedOpacity> icons = [
-  //   AnimatedOpacity(
-  //     opacity: _visible ? 1.0 : 0.0,
-  //     duration: Duration(milliseconds: 500),
-  //     child: Icon(
-  //       Icons.check,
-  //       color: Colors.green,
-  //       size: 60,
-  //     ),
-  //   ),
-  //   AnimatedOpacity(
-  //     opacity: _visible ? 1.0 : 0.0,
-  //     duration: Duration(milliseconds: 500),
-  //     child: Icon(
-  //       Icons.close,
-  //       color: Colors.red,
-  //       size: 60,
-  //     ),
-  //   ),
-  // ];
 
   AnimatedOpacity getCorrectIcon() {
     return new AnimatedOpacity(
@@ -126,7 +104,7 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Expanded(
           child: Center(
-            child: getIcon(),//icons[0]
+            child: getIcon(),
           ),
         ),
         Expanded(
