@@ -29,6 +29,8 @@ class _QuizPageState extends State<QuizPage> {
 
   int questionNum = 0;
   List<Icon> scoreKeeper = [];
+  bool _visibleCorrect = false;
+  bool _visibleIncorrect = false;
 
   List<Question> questionList = [
     Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
@@ -37,22 +39,67 @@ class _QuizPageState extends State<QuizPage> {
   ];
 
   int currIcon = 0;
-  List<Icon> icons = [
-    Icon(
-      Icons.check,
-      color: Colors.transparent,
-    ),
-    Icon(
-      Icons.check,
-      color: Colors.green,
-      size: 60,
-    ),
-    Icon(
-      Icons.close,
-      color: Colors.red,
-      size: 60,
-    ),
-  ];
+  // List<AnimatedOpacity> icons = [
+  //   AnimatedOpacity(
+  //     opacity: _visible ? 1.0 : 0.0,
+  //     duration: Duration(milliseconds: 500),
+  //     child: Icon(
+  //       Icons.check,
+  //       color: Colors.green,
+  //       size: 60,
+  //     ),
+  //   ),
+  //   AnimatedOpacity(
+  //     opacity: _visible ? 1.0 : 0.0,
+  //     duration: Duration(milliseconds: 500),
+  //     child: Icon(
+  //       Icons.close,
+  //       color: Colors.red,
+  //       size: 60,
+  //     ),
+  //   ),
+  // ];
+
+  AnimatedOpacity getCorrectIcon() {
+    return new AnimatedOpacity(
+      opacity: _visibleCorrect ? 1.0 : 0.0,
+      duration: Duration(milliseconds: 1000),
+      child: Icon(
+        Icons.check,
+        color: Colors.green,
+        size: 60,
+      ),
+      onEnd: () {
+        setState(() {
+          _visibleCorrect = false;
+        });
+      },
+    );
+  }
+
+  AnimatedOpacity getIncorrectIcon() {
+    return new AnimatedOpacity(
+      opacity: _visibleIncorrect ? 1.0 : 0.0,
+      duration: Duration(milliseconds: 1000),
+      child: Icon(
+        Icons.close,
+        color: Colors.red,
+        size: 60,
+      ),
+      onEnd: () {
+        setState(() {
+          _visibleIncorrect = false;
+        });
+      }
+    );
+  }
+
+  AnimatedOpacity getIcon() {
+    if (currIcon == 1)
+      return getCorrectIcon();
+    else
+      return getIncorrectIcon();
+  }
 
 
   @override
@@ -79,7 +126,7 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Expanded(
           child: Center(
-            child: icons[currIcon]
+            child: getIcon(),//icons[0]
           ),
         ),
         Expanded(
@@ -103,10 +150,14 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //true was chosen
                 setState(() {
-                  if (questionList[questionNum % questionList.length].checkAnswer(true))
+                  if (questionList[questionNum % questionList.length].checkAnswer(true)) {
+                    _visibleCorrect = true;
                     currIcon = 1;
-                  else
+                  }
+                  else {
+                    _visibleIncorrect = true;
                     currIcon = 2;
+                  }
                   questionNum++;
                 });
               },
@@ -134,10 +185,14 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //false was chosen
                 setState(() {
-                  if (questionList[questionNum % questionList.length].checkAnswer(false))
+                  if (questionList[questionNum % questionList.length].checkAnswer(false)) {
+                    _visibleCorrect = true;
                     currIcon = 1;
-                  else
+                  }
+                  else {
+                    _visibleIncorrect = true;
                     currIcon = 2;
+                  }
                   questionNum++;
                 });
               },
