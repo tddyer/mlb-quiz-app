@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'question.dart';
+import 'quiz_logic.dart';
+
+QuizLogic quizLogic = QuizLogic();
 
 void main() => runApp(Quizzler());
 
@@ -32,11 +34,7 @@ class _QuizPageState extends State<QuizPage> {
   bool _visibleCorrect = false;
   bool _visibleIncorrect = false;
 
-  List<Question> questionList = [
-    Question(q: 'You can lead a cow down stairs but not up stairs.', a: false),
-    Question(q: 'Approximately one quarter of human bones are in the feet.', a: true),
-    Question(q: 'A slug\'s blood is green.', a: true),
-  ];
+  
 
   AnimatedOpacity getCorrectIcon() {
     return new AnimatedOpacity(
@@ -92,7 +90,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionList[questionNum % questionList.length].question,
+                quizLogic.questionList[questionNum % quizLogic.questionList.length].question,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -128,7 +126,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //true was chosen
                 setState(() {
-                  if (questionList[questionNum % questionList.length].checkAnswer(true)) {
+                  if (quizLogic.questionList[questionNum % quizLogic.questionList.length].checkAnswer(true)) {
                     _visibleCorrect = true;
                     currIcon = 1;
                   }
@@ -163,7 +161,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //false was chosen
                 setState(() {
-                  if (questionList[questionNum % questionList.length].checkAnswer(false)) {
+                  if (quizLogic.questionList[questionNum % quizLogic.questionList.length].checkAnswer(false)) {
                     _visibleCorrect = true;
                     currIcon = 1;
                   }

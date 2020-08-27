@@ -4,7 +4,7 @@ class Question {
   bool answer;
 
   // constructor
-  Question({String q, bool a}) { 
+  Question(String q, bool a) { 
     question = q;
     answer = a;
   }
