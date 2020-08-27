@@ -1,5 +1,7 @@
 import 'question.dart';
 
+// using this modular approach, you could create multiple quiz_logic type files
+// to have multiple different kinds of quizzes
 
 class QuizLogic {
 

@@ -29,52 +29,29 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
 
-  int questionNum = 0;
-  int currIcon = 0;
-  bool _visibleCorrect = false;
-  bool _visibleIncorrect = false;
-
+  int questionNum = 0; // tracks current question - currently goes sequentially through questionList
+  bool correct = false;
+  bool _visible = false;
   
-
-  AnimatedOpacity getCorrectIcon() {
+  // takes the users answer and displays the proper icon (correct vs incorrect)
+  //  - since _visible is defaulted to false, on the first pass through no icon
+  //    will be displayed. Once the user answers, _visible becomes true and the
+  //    proper icon will then be displayed breifly
+  AnimatedOpacity getIcon(bool correct) {
     return new AnimatedOpacity(
-      opacity: _visibleCorrect ? 1.0 : 0.0,
+      opacity: _visible ? 1.0 : 0.0,
       duration: Duration(milliseconds: 1000),
       child: Icon(
-        Icons.check,
-        color: Colors.green,
+        correct ? Icons.check : Icons.close,
+        color: correct ? Colors.green : Colors.red,
         size: 60,
       ),
       onEnd: () {
         setState(() {
-          _visibleCorrect = false;
-        });
-      },
-    );
-  }
-
-  AnimatedOpacity getIncorrectIcon() {
-    return new AnimatedOpacity(
-      opacity: _visibleIncorrect ? 1.0 : 0.0,
-      duration: Duration(milliseconds: 1000),
-      child: Icon(
-        Icons.close,
-        color: Colors.red,
-        size: 60,
-      ),
-      onEnd: () {
-        setState(() {
-          _visibleIncorrect = false;
+          _visible = false;
         });
       }
     );
-  }
-
-  AnimatedOpacity getIcon() {
-    if (currIcon == 1)
-      return getCorrectIcon();
-    else
-      return getIncorrectIcon();
   }
 
 
@@ -102,7 +79,7 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Expanded(
           child: Center(
-            child: getIcon(),
+            child: getIcon(correct),
           ),
         ),
         Expanded(
@@ -125,17 +102,17 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //true was chosen
-                setState(() {
-                  if (quizLogic.questionList[questionNum % quizLogic.questionList.length].checkAnswer(true)) {
-                    _visibleCorrect = true;
-                    currIcon = 1;
+                setState(
+                  () {
+                    if (quizLogic.questionList[questionNum % quizLogic.questionList.length].checkAnswer(true))
+                      correct = true;
+                    else 
+                      correct = false;
+
+                    _visible = true;
+                    questionNum++;
                   }
-                  else {
-                    _visibleIncorrect = true;
-                    currIcon = 2;
-                  }
-                  questionNum++;
-                });
+                );
               },
             ),
           ),
@@ -160,17 +137,17 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //false was chosen
-                setState(() {
-                  if (quizLogic.questionList[questionNum % quizLogic.questionList.length].checkAnswer(false)) {
-                    _visibleCorrect = true;
-                    currIcon = 1;
+                setState(
+                  () {
+                    if (quizLogic.questionList[questionNum % quizLogic.questionList.length].checkAnswer(false))
+                      correct = true;
+                    else 
+                      correct = false;
+  
+                    _visible = true;
+                    questionNum++;
                   }
-                  else {
-                    _visibleIncorrect = true;
-                    currIcon = 2;
-                  }
-                  questionNum++;
-                });
+                );
               },
             ),
           ),
