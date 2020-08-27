@@ -30,8 +30,8 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
 
   int questionNum = 0; // tracks current question - currently goes sequentially through questionList
-  bool correct = false;
-  bool _visible = false;
+  bool correct = false; // checks if users answer was correct/incorrect
+  bool _visible = false; // determines whether the correct/incorrect icon indicators should be displayed
   
   // takes the users answer and displays the proper icon (correct vs incorrect)
   //  - since _visible is defaulted to false, on the first pass through no icon
@@ -67,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizLogic.questionList[questionNum % quizLogic.questionList.length].question,
+                quizLogic.getQuestionText(questionNum),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -104,7 +104,7 @@ class _QuizPageState extends State<QuizPage> {
                 //true was chosen
                 setState(
                   () {
-                    if (quizLogic.questionList[questionNum % quizLogic.questionList.length].checkAnswer(true))
+                    if (quizLogic.checkAnswer(questionNum, true))
                       correct = true;
                     else 
                       correct = false;
@@ -139,7 +139,7 @@ class _QuizPageState extends State<QuizPage> {
                 //false was chosen
                 setState(
                   () {
-                    if (quizLogic.questionList[questionNum % quizLogic.questionList.length].checkAnswer(false))
+                    if (quizLogic.checkAnswer(questionNum, false))
                       correct = true;
                     else 
                       correct = false;
@@ -156,9 +156,3 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 }
-
-/*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/

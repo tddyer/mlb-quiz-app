@@ -9,10 +9,4 @@ class Question {
     answer = a;
   }
 
-  bool checkAnswer(bool a) {
-    if (a == answer)
-      return true;
-    return false;
-  }
-
 }
