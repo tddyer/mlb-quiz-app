@@ -1,3 +1,4 @@
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter/material.dart';
 import 'quiz_logic.dart';
 
@@ -32,6 +33,8 @@ class _QuizPageState extends State<QuizPage> {
   int questionNum = 0; // tracks current question - currently goes sequentially through questionList
   bool correct = false; // checks if users answer was correct/incorrect
   bool _visible = false; // determines whether the correct/incorrect icon indicators should be displayed
+  int correctAnswerCount = 0; // keeps track of how many questions the user has answered correctly
+  int quizLength = quizLogic.getQuizLength();
   
   // takes the users answer and displays the proper icon (correct vs incorrect)
   //  - since _visible is defaulted to false, on the first pass through no icon
@@ -58,11 +61,24 @@ class _QuizPageState extends State<QuizPage> {
   // refreshes app state to display answer feedback icon
   void processUserAnswer(bool answer) {
     setState(() {
-      if (quizLogic.checkAnswer(questionNum, answer))
+      // checking user answer
+      if (quizLogic.checkAnswer(questionNum, answer)) {
         correct = true;
-      else 
+        correctAnswerCount++;
+      } else 
         correct = false;
 
+      // checking if quiz is finished and displaying alert if so
+      if (quizLogic.isFinished(questionNum)) {
+        Alert(
+            context: context,
+            title: "Quiz Complete!",
+            desc: "You're score: $correctAnswerCount / $quizLength\nYou'll now be redirected to the start of the quiz.")
+        .show();
+        correctAnswerCount = 0;
+      }
+
+      // updating current question number and making answer feedback icon visible
       _visible = true;
       questionNum++;
     });

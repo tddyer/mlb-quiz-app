@@ -23,4 +23,14 @@ class QuizLogic {
     return false;
   }
 
+  bool isFinished(int questionNum) {
+    if (questionNum % _questionList.length == _questionList.length - 1)
+      return true;
+    return false;
+  }
+
+  int getQuizLength() {
+    return _questionList.length;
+  }
+
 }
