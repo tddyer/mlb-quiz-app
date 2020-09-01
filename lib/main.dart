@@ -54,6 +54,20 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
+  // checks user answer, updates appropriate variables based upon answer, and
+  // refreshes app state to display answer feedback icon
+  void processUserAnswer(bool answer) {
+    setState(() {
+      if (quizLogic.checkAnswer(questionNum, answer))
+        correct = true;
+      else 
+        correct = false;
+
+      _visible = true;
+      questionNum++;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +92,7 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
         Expanded(
-          child: Center( // correct/incorrect icon
+          child: Center( // answer feedback icon
             child: getIcon(correct),
           ),
         ),
@@ -102,17 +116,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //true was chosen
-                setState(
-                  () {
-                    if (quizLogic.checkAnswer(questionNum, true))
-                      correct = true;
-                    else 
-                      correct = false;
-
-                    _visible = true;
-                    questionNum++;
-                  }
-                );
+                processUserAnswer(true);
               },
             ),
           ),
@@ -137,17 +141,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //false was chosen
-                setState(
-                  () {
-                    if (quizLogic.checkAnswer(questionNum, false))
-                      correct = true;
-                    else 
-                      correct = false;
-  
-                    _visible = true;
-                    questionNum++;
-                  }
-                );
+                processUserAnswer(false);
               },
             ),
           ),
