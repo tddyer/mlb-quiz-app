@@ -65,7 +65,7 @@ class _QuizPageState extends State<QuizPage> {
           flex: 5,
           child: Padding(
             padding: EdgeInsets.all(10.0),
-            child: Center(
+            child: Center( // question text
               child: Text(
                 quizLogic.getQuestionText(questionNum),
                 textAlign: TextAlign.center,
@@ -78,11 +78,11 @@ class _QuizPageState extends State<QuizPage> {
           ),
         ),
         Expanded(
-          child: Center(
+          child: Center( // correct/incorrect icon
             child: getIcon(correct),
           ),
         ),
-        Expanded(
+        Expanded( // true button
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: FlatButton(
@@ -117,7 +117,7 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
-        Expanded(
+        Expanded( // false button
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: FlatButton(
