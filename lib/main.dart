@@ -33,8 +33,8 @@ class _QuizPageState extends State<QuizPage> {
   int questionNum = 0; // tracks current question - currently goes sequentially through questionList
   bool correct = false; // checks if users answer was correct/incorrect
   bool _visible = false; // determines whether the correct/incorrect icon indicators should be displayed
-  int correctAnswerCount = 0; // keeps track of how many questions the user has answered correctly
-  int quizLength = quizLogic.getQuizLength();
+  int correctAnswerCount = 0; // how many questions the user has answered correctly
+  int quizLength = quizLogic.getQuizLength(); // length of quiz
   
   // takes the users answer and displays the proper icon (correct vs incorrect)
   //  - since _visible is defaulted to false, on the first pass through no icon
@@ -96,6 +96,7 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Center( // question text
+            //TODO: have questions come in a bit delayed instead of right away
               child: Text(
                 quizLogic.getQuestionText(questionNum),
                 textAlign: TextAlign.center,
