@@ -28,6 +28,5 @@ We’re going to make a quiz app that tests your general knowledge. As one of th
 
 This project was built while following "The Complete Flutter Development Bootcamp using Dart" by the London App Brewery and Angela Yu on LinkedIn Learning (https://www.linkedin.com/learning/flutter-part-06-modularizing-and-organizing-flutter-code)
 
->This is a companion project to The App Brewery's Complete Flutter Development Bootcamp, check out the full course at [www.appbrewery.co](https://www.appbrewery.co/)
 
-![End Banner](https://github.com/londonappbrewery/Images/blob/master/readme-end-banner.png)
+>This is a companion project to The App Brewery's Complete Flutter Development Bootcamp, check out the full course at [www.appbrewery.co](https://www.appbrewery.co/)
