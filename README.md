@@ -9,7 +9,7 @@ This project is my implementation of the Quizzler app built while following "The
 We’re going to make a quiz app that tests your general knowledge. As one of the most popular types of apps on the app stores, you can create your own quiz for other people to enjoy!
 
 
-## What you will learn
+## Topics Covered
 
 - Modularising your code into separate classes.
 - Dart classes and objects.
